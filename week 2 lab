@@ -94,3 +94,6 @@ where participated.reg_num = car.reg_num and car.model = "ABC";
 
 select count(distinct driver_id) from participated,accident
  where participated.report_num = accident.report_num and accident.accident_date like '%20';
+
+select count(distinct driver_id) from participated,accident, car
+ where participated.report_num = accident.report_num and car.model = "ABC" and accident.accident_date like '%20' ;
