@@ -67,3 +67,30 @@ INSERT INTO PARTICIPATED VALUES
 ("KA05","R05","1005",50000);
 
 select * from participated;
+
+
+
+/* to-do questions */ 
+
+select * from participated order  by damage_amount desc;
+select avg(damage_amount) as avg_amount from participated;
+delete from participated where damage_amount < (select avg(damage_amount) from participated);
+
+
+
+/* running queries */
+
+
+update participated 
+set damage_amount = 18000 where damage_amount = 20000 and report_num = 1002;
+
+INSERT INTO ACCIDENT VALUES
+("1006","06012020","NH-30");
+
+select * from car order by year asc;
+
+select count(report_num) from car, participated
+where participated.reg_num = car.reg_num and car.model = "ABC";
+
+select count(distinct driver_id) from participated,accident
+ where participated.report_num = accident.report_num and accident.accident_date like '%20';
