@@ -1,0 +1,84 @@
+create database bank;
+use bank;
+
+create table branch(
+branch_name varchar(20) primary key,
+branch_city varchar(20),
+assets int);
+
+create table bank_account(
+acc_no varchar(20) primary key,
+branch_name varchar(20),
+balance int,
+foreign key (branch_name) references branch(branch_name));
+
+create table bank_customer(
+cust_name varchar(20) primary key,
+cust_street varchar(20),
+city varchar(20));
+
+create table depositer(
+cust_name varchar(20),
+acc_no varchar(20),
+foreign key (cust_name) references bank_customer(cust_name),
+foreign key (acc_no) references bank_account(acc_no));
+
+create table loan(
+loan_no varchar(20),
+branch_name varchar(20),
+amount int,
+foreign key (branch_name) references branch(branch_name));
+
+insert into branch values
+("branch-1","city-1",100000),
+("branch-2","city-2",200000),
+("branch-3","city-1",300000),
+("branch-4","city-2",400000),
+("branch-5","city-3",500000);
+
+insert into bank_account values
+("000001","branch-1",1000),
+("000002","branch-1",2000),
+("000003","branch-2",3000),
+("000004","branch-3",4000),
+("000005","branch-4",5000),
+("000006","branch-5",1500),
+("000007","branch-5",3000);
+
+insert into bank_customer values
+("ABC","street-1","city-1"),
+("ABD","street-1","city-1"),
+("ABE","street-2","city-1"),
+("ABF","street-3","city-2"),
+("ABG","street-4","city-3"),
+("ABH","street-5","city-2"),
+("ABI","street-5","city-2");
+
+insert into depositer values
+("ABC","000001"),
+("ABC","000002"),
+("ABE","000003"),
+("ABF","000004"),
+("ABG","000005"),
+("ABH","000006"),
+("ABH","000007");
+
+insert into loan values
+("L001","branch-1",1000),
+("L002","branch-1",2000),
+("L003","branch-3",3000),
+("L004","branch-4",4000),
+("L005","branch-4",5000);
+
+
+select branch_name,(assets_in_lakh/100000) from branch;
+
+alter table branch
+rename column assets to assets_in_lakh;
+
+select sum(amount),branch_name from loan
+group by branch_name;
+
+select cust_name from depositer
+where acc_no in(select acc_no from bank_account
+group by branch_name having count(*) > 1);
