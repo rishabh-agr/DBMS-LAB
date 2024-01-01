@@ -97,3 +97,12 @@ select count(distinct driver_id) from participated,accident
 
 select count(distinct driver_id) from participated,accident, car
  where participated.report_num = accident.report_num and car.model = "ABC" and accident.accident_date like '%20' ;
+
+select * from participated order by damage_amount desc;
+
+select avg(damage_amount) from participated;
+
+delete from participated where
+damage_amount < (select avg(damage_amount) from participated);
+
+select max(damage_amount) from participatd;
