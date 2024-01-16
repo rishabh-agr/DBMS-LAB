@@ -1,0 +1,84 @@
+create database employee_details;
+use employee_details;
+
+create table dept(
+deptno varchar(10) primary key,
+dname varchar(20),
+dloc varchar(20));
+
+create table project(
+pno varchar(10) primary key,
+ploc varchar(20),
+pname varchar(20));
+
+create table employee(
+empno varchar(10) primary key,
+ename varchar(20),
+mgr_no varchar(20),
+hiredate date,
+sal varchar(20),
+deptno varchar(10),
+foreign key (deptno) references dept(deptno));
+
+create table incentives(
+empno varchar(10),
+incentive_date date primary key,
+incentive_amount int not null,
+foreign key (empno) references employee(empno));
+
+create table assigned_to(
+empno varchar(10),
+pno varchar(10),
+job_role varchar(20),
+foreign key (empno) references employee(empno),
+foreign key (pno) references project(pno));
+
+insert into dept values
+("001","DEP_1","LOC1"),
+("002","DEP_2","LOC1"),
+("003","DEP_3","LOC2"),
+("004","DEP_4","LOC2"),
+("005","DEP_5","LOC3");
+
+insert into project values
+("P01","PRO_1","LOC1"),
+("P02","PRO_2","LOC1"),
+("P03","PRO_3","LOC2"),
+("P04","PRO_4","LOC2"),
+("P05","PRO_5","LOC3");
+
+insert into employee value
+("E01","ABc","M01","2020-12-10","10000","001"),
+("E02","AB2","M01","2020-12-11","10000","001"),
+("E03","AB3","M01","2020-12-12","10000","002"),
+("E04","AB4","M02","2020-12-13","20000","002"),
+("E05","AB5","M02","2020-12-14","20000","003"),
+("E06","AB6","M02","2020-12-15","20000","003"),
+("E07","AB7","M03","2020-12-16","30000","004"),
+("E08","AB8","M03","2020-12-17","30000","004"),
+("E09","AB9","M03","2020-12-18","30000","005"),
+("E10","AB10","M03","2020-12-19","30000","005");
+
+insert into incentives values
+("E01","2022-12-10",1000),
+("E02","2022-12-11",1000),
+("E03","2022-12-12",1000),
+("E04","2022-12-13",2000),
+("E05","2022-12-14",2000),
+("E06","2022-12-15",2000),
+("E07","2022-12-16",3000),
+("E08","2022-12-17",3000),
+("E09","2022-12-18",3000),
+("E10","2022-12-19",3000);
+
+insert into assigned_to values
+("E01","P01","Front-end"),
+("E02","P01","Back-end"),
+("E03","P02","Front-end"),
+("E04","P02","Back-end"),
+("E05","P03","Front-end"),
+("E06","P03","Back-end"),
+("E07","P04","Front-end"),
+("E08","P04","Back-end"),
+("E09","P05","Front-end"),
+("E10","P05","Back-end");
