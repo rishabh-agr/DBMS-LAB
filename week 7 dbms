@@ -55,3 +55,16 @@ WHERE NOT EXISTS (
     )
 );
 
+SELECT s.sname
+FROM suppliers s
+WHERE NOT EXISTS (
+    SELECT p.pid
+    FROM parts p
+    WHERE p.color = 'red' AND NOT EXISTS (
+        SELECT c.pid
+        FROM catalog c
+        WHERE c.sid = s.sid AND c.pid = p.pid
+    )
+);
+
+
