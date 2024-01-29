@@ -67,4 +67,15 @@ WHERE NOT EXISTS (
     )
 );
 
+SELECT DISTINCT p.pname
+FROM parts p
+JOIN catalog c ON p.pid = c.pid
+JOIN suppliers s ON c.sid = s.sid
+WHERE s.sname = 'Acme'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM catalog c2
+    JOIN suppliers s2 ON c2.sid = s2.sid
+    WHERE c2.pid = c.pid AND s2.sname <> 'Acme'
+);
 
