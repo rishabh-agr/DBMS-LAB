@@ -1,0 +1,44 @@
+create database supplier;
+use supplier;
+
+create table suppliers(
+sid varchar(10) primary key,
+sname varchar(30),
+city varchar(30) );
+
+create table parts(
+pid varchar(10) primary key,
+pname varchar(30),
+color varchar(30));
+
+create table catalog(
+sid varchar(10),
+pid varchar(10),
+cost int,
+foreign key (sid) references suppliers(sid),
+foreign key (pid) references parts(pid));
+
+insert into suppliers values
+("10001","Acme","B"),
+("10002","johns","K"),
+("10003","vimal","M"),
+("10004","Reliance","D");
+
+insert into parts values
+("20001","BOOK","red"),
+("20002","PEN","red"),
+("20003","PENCIL","green"),
+("20004","MIOBILE","green"),
+("20005","CHARGER","bkack");
+
+insert into catalog values
+("10001","20001","10"),
+("10001","20002","10"),
+("10001","20003","30"),
+("10001","20004","10"),
+("10001","20005","10"),
+("10002","20001","10"),
+("10002","20002","20"),
+("10003","20003","30"),
+("10003","20004","40"),
+("10004","20003","20");
