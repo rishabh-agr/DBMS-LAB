@@ -42,3 +42,16 @@ insert into catalog values
 ("10003","20003","30"),
 ("10003","20004","40"),
 ("10004","20003","20");
+
+SELECT s.sname
+FROM suppliers s
+WHERE NOT EXISTS (
+    SELECT p.pid
+    FROM parts p
+    WHERE NOT EXISTS (
+        SELECT c.pid
+        FROM catalog c
+        WHERE c.sid = s.sid AND c.pid = p.pid
+    )
+);
+
