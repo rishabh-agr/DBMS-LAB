@@ -43,6 +43,10 @@ insert into catalog values
 ("10003","20004","40"),
 ("10004","20003","20");
 
+select distinct p.pname
+from parts p
+join catalog c on p.pid = c.pid;
+
 SELECT s.sname
 FROM suppliers s
 WHERE NOT EXISTS (
