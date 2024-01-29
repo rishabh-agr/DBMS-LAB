@@ -89,3 +89,11 @@ SELECT DISTINCT c.sid, c.pid, c.cost
             FROM catalog c1
             WHERE c1.pid=c.pid)
 GROUP BY c.sid, c.pid, c.cost;
+
+SELECT p.pname, s.sname, MAX(c.cost) AS max_cost
+FROM parts p
+JOIN catalog c ON p.pid = c.pid
+JOIN suppliers s ON c.sid = s.sid
+GROUP BY p.pname, s.sname;
+
+
