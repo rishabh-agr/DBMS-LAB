@@ -79,3 +79,9 @@ WHERE s.sname = 'Acme'
     WHERE c2.pid = c.pid AND s2.sname <> 'Acme'
 );
 
+SELECT DISTINCT c.sid, c.pid, c.cost   
+  FROM catalog AS c
+ WHERE c.cost > (SELECT avg(c1.cost) AS avg_cost
+            FROM catalog c1
+            WHERE c1.pid=c.pid)
+GROUP BY c.sid, c.pid, c.cost;
